@@ -7,12 +7,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Collection;
+
+import static edu.miu.camsapp.constant.ResourceKeyConstant.CUSTOMER_ACCOUNTS;
+import static edu.miu.camsapp.constant.ResourceKeyConstant.CustomerAccountMVCResource.CUSTOMER_ACCOUNT_RESOURCE;
+
 /**
  * @author bijayshrestha on 7/12/22
  * @project cams-app
  */
 @Controller
-@RequestMapping(value = "/spebank/account")
+@RequestMapping(value = CUSTOMER_ACCOUNT_RESOURCE)
 public class CustomerAccountResource {
 
     private final AccountService accountService;
@@ -22,18 +27,28 @@ public class CustomerAccountResource {
     }
 
 
-    @GetMapping(value = "/list")
+    @GetMapping(value = CUSTOMER_ACCOUNTS)
     public ModelAndView listSuppliers() {
-        var customerAccounts = accountService.getCustomerAccountsDescendingByBalance();
+        var customerAccounts = accountService
+                .getCustomerAccountsDescendingByBalance();
+        return getModelAndView(customerAccounts);
+    }
+
+    private ModelAndView getModelAndView(Collection<Account> customerAccounts) {
         var modelAndView = new ModelAndView();
         modelAndView.addObject("accounts", customerAccounts);
+        modelAndView.addObject("liquidityPosition",
+                getLiquidityPosition(customerAccounts));
+        modelAndView.addObject("size", customerAccounts.size());
+        modelAndView.setViewName("secured/account/list");
+        return modelAndView;
+    }
+
+    private double getLiquidityPosition(Collection<Account> customerAccounts) {
         double liquidityPosition = 0.0;
         for(Account account: customerAccounts){
             liquidityPosition+=account.getBalance();
         }
-        modelAndView.addObject("liquidityPosition", liquidityPosition);
-        modelAndView.addObject("size", customerAccounts.size());
-        modelAndView.setViewName("secured/account/list");
-        return modelAndView;
+        return liquidityPosition;
     }
 }
