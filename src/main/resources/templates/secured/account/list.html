@@ -17,14 +17,14 @@
 <body>
 <header th:replace="fragments/header :: header"></header>
 <main>
-    <h1>Our Customer-Accounts</h1>
+    <h1 style="color: dodgerblue">Our Customer-Accounts</h1>
 
     <div th:if="${size == 0}">
-        <p>No Customer Accounts record found.</p>
+        <p style="color: red">No Customer Accounts record found.</p>
     </div>
     <table>
         <thead  th:if="${size > 0}">
-        <tr>
+        <tr style="color: dodgerblue">
             <th>#</th>
             <th>Account Number</th>
             <th>Customer</th>
@@ -42,7 +42,7 @@
         </tr>
         </tbody>
     </table>
-    <h1>Liquidity Position: <span th:text="${'$'} +${liquidityPosition}"></span></h1>
+    <h1 style="color: dodgerblue">Liquidity Position: <span th:text="${'$'} +${liquidityPosition}"></span></h1>
 </main>
 </body>
 <footer th:replace="fragments/footer :: footer"></footer>
