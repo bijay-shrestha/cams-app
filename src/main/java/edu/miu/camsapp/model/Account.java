@@ -42,7 +42,17 @@ public class Account implements Serializable {
     @NotNull(message = "Balance cannot be null or empty.")
     private double balance;
 
-    @OneToOne(mappedBy = "account")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
+    public Account(String accountNumber,
+                   String accountType,
+                   LocalDate dateOpened,
+                   double balance) {
+        this.accountNumber = accountNumber;
+        this.accountType = accountType;
+        this.dateOpened = dateOpened;
+        this.balance = balance;
+    }
 }

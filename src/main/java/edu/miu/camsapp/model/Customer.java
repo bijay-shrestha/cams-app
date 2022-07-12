@@ -35,7 +35,11 @@ public class Customer implements Serializable {
     @Column(nullable = false)
     private String lastName;
 
-    @OneToOne
-    @JoinColumn(name = "account_id")
+    @OneToOne(mappedBy = "customer")
     private Account account;
+
+    public Customer(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 }
