@@ -19,6 +19,7 @@ import java.time.LocalDate;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "accounts")
 public class Account implements Serializable {
 
     @Id
@@ -44,7 +45,7 @@ public class Account implements Serializable {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id")
-    private Customer customer;
+    private Customer owner;
 
     public Account(String accountNumber,
                    String accountType,

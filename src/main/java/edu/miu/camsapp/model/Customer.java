@@ -1,5 +1,6 @@
 package edu.miu.camsapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Table(name = "customers")
 public class Customer implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +37,8 @@ public class Customer implements Serializable {
     @Column(nullable = false)
     private String lastName;
 
-    @OneToOne(mappedBy = "customer")
+    @OneToOne(mappedBy = "owner")
+    @JsonIgnore
     private Account account;
 
     public Customer(String firstName, String lastName) {

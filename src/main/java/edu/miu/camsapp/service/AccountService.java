@@ -13,4 +13,9 @@ public interface AccountService {
     Collection<Account> saveAllAccounts(List<Account> accounts);
 
     Account saveAccount(Account account);
+
+    Collection<Account> getCustomerAccountsDescendingByBalance();
+
+    Collection<Account> getPrimeCustomerAccounts();
+
 }

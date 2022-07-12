@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>The Special Bank of Burlington- Customer-Accounts</title>
+    <style>
+        table {
+            border: 1px solid;
+            border-collapse: collapse;
+        }
+        table th, table td {
+            border: 1px solid;
+            padding: 1em;
+        }
+    </style>
+</head>
+<body>
+<header th:replace="fragments/header :: header"></header>
+<main>
+    <h1>Our Customer-Accounts</h1>
+
+    <div th:if="${size == 0}">
+        <p>No Customer Accounts record found.</p>
+    </div>
+    <table>
+        <thead  th:if="${size > 0}">
+        <tr>
+            <th>#</th>
+            <th>Account Number</th>
+            <th>Customer</th>
+            <th>Account Type</th>
+            <th>Balance (in US$)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${size > 0}" th:each="account, counter : ${accounts}">
+            <th th:text="${counter.count}+${'.'}"></th>
+            <td th:text="${account.accountNumber}"></td>
+            <td th:text="${account.owner.firstName} + ${' '} + ${account.owner.lastName}"></td>
+            <td th:text="${account.accountType}"></td>
+            <td th:text="${account.balance}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <h1>Liquidity Position: <span th:text="${'$'} +${liquidityPosition}"></span></h1>
+</main>
+</body>
+</html>

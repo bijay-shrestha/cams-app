@@ -3,6 +3,7 @@ package edu.miu.camsapp.service.impl;
 import edu.miu.camsapp.model.Account;
 import edu.miu.camsapp.repository.AccountRepository;
 import edu.miu.camsapp.service.AccountService;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,4 +33,15 @@ public class AccountServiceImpl implements AccountService {
     public Account saveAccount(Account account) {
         return accountRepository.save(account);
     }
+
+    @Override
+    public Collection<Account> getCustomerAccountsDescendingByBalance() {
+        return accountRepository.findAllAccounts();
+    }
+
+    @Override
+    public Collection<Account> getPrimeCustomerAccounts() {
+        return accountRepository.findPrimeCustomerAccounts();
+    }
+
 }
