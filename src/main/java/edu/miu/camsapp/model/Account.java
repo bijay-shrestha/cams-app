@@ -38,9 +38,11 @@ public class Account implements Serializable {
     @Column(nullable = false)
     private String accountType;
 
+    @Column(nullable = true)
     private LocalDate dateOpened;
 
     @NotNull(message = "Balance cannot be null or empty.")
+    @Column(nullable = false)
     private double balance;
 
     @OneToOne(cascade = CascadeType.ALL)
